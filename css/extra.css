@@ -1,215 +1,301 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: auto;
+}
 
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+
+.container {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .wrapper {
-    --input-focus: #0d47a1;
-    --font-color: #222;
-    --font-color-sub: #777;
-    --bg-color: #ffffff;
-    --bg-color-alt: #e6e6e6;
-    --main-color: #0d47a1;
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: #f9f9f9;
-  }
+  --input-focus: #4f46e5;
+  --font-color: #374151;
+  --font-color-sub: #6b7280;
+  --bg-color: #ffffff;
+  --bg-color-alt: #4f46e5;
+  --main-color: #4b5563;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  width: 100vw;
+  max-width: 350px;
+}
+
+.card-switch {
+  position: relative;
+}
+
+.switch {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 40px;
+}
+
+.card-side::before {
+  position: absolute;
+  content: 'Log in';
+  left: -70px;
+  top: 10px;
+  width: 100px;
+  text-decoration: underline;
+  color: var(--font-color);
+  font-weight: 600;
+}
+
+.card-side::after {
+  position: absolute;
+  content: 'Sign up';
+  left: 70px;
+  top: 10px;
+  width: 100px;
+  text-decoration: none;
+  color: var(--font-color);
+  font-weight: 600;
+}
+
+.toggle {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: relative;
+  width: 50px;
+  height: 23px;
+  background-color: var(--bg-color);
+  border-radius: 50px;
+  border: 2px solid var(--main-color);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: -1px;
+  bottom: -1.5px;
+  background-color: var(--bg-color);
+  border: 2px solid var(--main-color);
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.toggle:checked + .slider {
+  background-color: var(--input-focus);
+  border-color: var(--input-focus);
+}
+
+.toggle:checked + .slider:before {
+  transform: translateX(28.5px);
+  background-color: white;
+  border-color: var(--input-focus);
+}
+
+.toggle:checked ~ .card-side::before {
+  text-decoration: none;
+}
+
+.toggle:checked ~ .card-side::after {
+  text-decoration: underline;
+}
+
+/* Flip card layout */
+.flip-card__inner {
+  width: 320px;
+  height: 350px;
+  background-color: transparent;
+  perspective: 1000px;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.toggle:checked ~ .flip-card__inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card__front,
+.flip-card__back {
+  position: absolute;
+  width: 100%;
+  padding: 30px 20px;
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
   
-  /* switch card */
-  .switch {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 24px;
-    width: 50px;
-    height: 32px;
-  }
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  backface-visibility: hidden;
   
-  .card-side::before,
-  .card-side::after {
-    position: absolute;
-    top: 0; /* Aligned better with switch */
-    width: 100px;
-    font-weight: 600;
-    color: var(--font-color);
-    transition: color 0.3s ease;
-    font-size: 16px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.flip-card__front {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.flip-card__back {
+  transform: rotateY(180deg);
+}
+
+.flip-card__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--font-color);
+  text-align: center;
+}
+
+.flip-card__input {
+  width: 100%;
+  height: 45px;
+  padding: 0 15px;
+  border-radius: 8px;
+  border: 2px solid #e5e7eb;
+  background-color: var(--bg-color);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--font-color);
+  transition: all 0.3s ease;
+}
+
+.flip-card__input:focus {
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.flip-card__input::placeholder {
+  color: var(--font-color-sub);
+}
+
+.flip-card__btn {
+  width: 140px;
+  height: 45px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(135deg, var(--input-focus) 0%, #6366f1 100%);
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.flip-card__btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+}
+
+.flip-card__btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+}
+
+.forgot-password {
+  font-size: 14px;
+  color: var(--input-focus);
+  text-decoration: none;
+  margin-top: 5px;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+/* Checkbox */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: var(--font-color);
+  cursor: pointer;
+  position: relative;
+  padding-left: 25px;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+}
+
+.checkmark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 18px;
+  width: 18px;
+  border: 2px solid #d1d5db;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  background-color: var(--input-focus);
+  border-color: var(--input-focus);
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+  left: 5px;
+  top: 2px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .wrapper {
+    max-width: 100%;
+    padding: 0 15px;
   }
-  
-  .card-side::before {
-    content: 'Log in';
-    left: -70px; /* Adjusted to align better */
-    text-decoration: underline;
-    
-  }
-  
-  .card-side::after {
-    content: 'Sign up';
-    left: 70px;
-    text-decoration: none;
-  }
-  
-  .toggle {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  .slider {
-    box-sizing: border-box;
-    border-radius: 999px;
-    border: 2px solid var(--main-color);
-    background-color: #eee;
-    box-shadow: inset 0 0 4px rgba(0,0,0,0.1);
-    cursor: pointer;
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    transition: background-color 0.3s ease;
-  }
-  
-  .slider:before {
-    content: "";
-    position: absolute;
-    height: 20px;
-    width: 20px;
-    left: 2px;
-    bottom: 2px;
-    background-color: var(--bg-color);
-    border-radius: 50%;
-    transition: transform 0.3s ease;
-  }
-  
-  .toggle:checked + .slider {
-    background-color: var(--input-focus);
-  }
-  
-  .toggle:checked + .slider:before {
-    transform: translateX(30px);
-  }
-  
-  .toggle:checked ~ .card-side:before {
-    text-decoration: none;
-  }
-  .toggle:checked ~ .card-side:after {
-    text-decoration: underline;
-  }
-  
-  /* card */
+
   .flip-card__inner {
-    width: 320px;
-    height: 420px; /* Increased to fit all content */
-    position: relative;
-    perspective: 1000px;
-    text-align: center;
-    transition: transform 0.8s ease;
-    transform-style: preserve-3d;
-  }
-  
-  .toggle:checked ~ .flip-card__inner {
-    transform: rotateY(180deg);
+    height: 380px;
   }
 
-  .toggle:checked ~ .flip-card__front {
-    box-shadow: none;
-  }
-  
-  .flip-card__front,
-  .flip-card__back {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: var(--bg-color);
-    border-radius: 20px;
-    gap: 20px;
-    border: 2px solid #ddd;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    padding: 24px; /* More breathing room */
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-  }
-  
-  .flip-card__back {
-    width: 100%;
-    transform: rotateY(180deg);
-  }
-
-  .flip-card__form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-  
   .title {
-    margin: 10px 0 12px 0;
-    font-size: 26px;
-    font-weight: 900;
-    text-align: center;
-    color: var(--main-color);
+    font-size: 22px;
   }
-  
-  .flip-card__input {
-    width: 100%;
-    height: 42px;
-    padding: 4px 12px;
-    font-size: 15px;
-    border-radius: 6px;
-    border: 2px solid #ccc;
-    transition: border 0.3s ease, box-shadow 0.3s ease;
-    background-color: var(--bg-color);
-    color: var(--font-color);
-    outline: none;
-  }
-  
-  .flip-card__input:focus {
-    border-color: var(--input-focus);
-    box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.1);
-    outline: none;
-  }
-  
-  .flip-card__input::placeholder {
-    color: var(--font-color-sub);
-    opacity: 0.8;
-  }
-
-  .flip-card__btn:active, .button-confirm:active {
-    box-shadow: 0px 0px var(--main-color);
-    transform: translate(3px, 3px);
-  }
-  
-  .flip-card__btn {
-    width: 100%;
-    height: 42px;
-    background-color: var(--main-color);
-    border: none;
-    color: #fff;
-    font-weight: 600;
-    font-size: 16px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .flip-card__btn:hover {
-    background-color: #0b3c91;
-  }
-  
-  .flip-card__btn:active {
-    transform: translateY(2px);
-  }
-  
-  .forgot-password {
-    font-size: 14px;
-    color: var(--font-color-sub);
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  
-  .forgot-password:hover {
-    color: var(--input-focus);
-    text-decoration: underline;
-  }
-  
+}
