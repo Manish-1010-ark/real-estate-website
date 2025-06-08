@@ -1,58 +1,62 @@
-from flask_bcrypt import generate_password_hash, check_password_hash
 from datetime import datetime
+from extensions import db
 
-def create_user_model(db):
-    """Factory function to create User model with db instance"""
+class User(db.Model):
+    __tablename__ = 'users'
     
-    class User(db.Model):
-        __tablename__ = 'users'
-        
-        id = db.Column(db.Integer, primary_key=True)
-        name = db.Column(db.String(100), nullable=False)
-        email = db.Column(db.String(120), unique=True, nullable=False)
-        password_hash = db.Column(db.String(128), nullable=False)
-        role = db.Column(db.String(20), nullable=False, default='buyer')
-        created_at = db.Column(db.DateTime, default=datetime.utcnow)
-        is_active = db.Column(db.Boolean, default=True)
-        
-        def __init__(self, name, email, password, role='buyer'):
-            self.name = name
-            self.email = email
-            self.set_password(password)
-            self.role = role
-            
-        def set_password(self, password):
-            """Hash and set password"""
-            self.password_hash = generate_password_hash(password).decode('utf-8')
-            
-        def check_password(self, password):
-            """Check if provided password matches hash"""
-            return check_password_hash(self.password_hash, password)
-        
-        def is_admin(self):
-            """Check if user is admin"""
-            return self.role == 'admin'
-        
-        def is_agent(self):
-            """Check if user is agent"""
-            return self.role == 'agent'
-        
-        def is_buyer(self):
-            """Check if user is buyer"""
-            return self.role == 'buyer'
-        
-        def to_dict(self):
-            """Convert user object to dictionary for JSON responses"""
-            return {
-                'id': self.id,
-                'name': self.name,
-                'email': self.email,
-                'role': self.role,
-                'created_at': self.created_at.isoformat(),
-                'is_active': self.is_active
-            }
-        
-        def __repr__(self):
-            return f'<User {self.email}>'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False, index=True)
+    password = db.Column(db.String(255), nullable=False)
+    role = db.Column(db.Enum('admin', 'agent', 'customer', name='user_roles'), 
+                     nullable=False, default='customer')
+    phone = db.Column(db.String(20), nullable=True)
+    address = db.Column(db.Text, nullable=True)
+    is_active = db.Column(db.Boolean, default=True, nullable=False)
+    is_verified = db.Column(db.Boolean, default=False, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, 
+                          onupdate=datetime.utcnow, nullable=False)
+    last_login = db.Column(db.DateTime, nullable=True)
     
-    return User
+    def __repr__(self):
+        return f'<User {self.email}>'
+    
+    def to_dict(self, include_sensitive=False):
+        """Convert user object to dictionary for JSON serialization"""
+        user_dict = {
+            'id': self.id,
+            'name': self.name,
+            'email': self.email,
+            'role': self.role,
+            'phone': self.phone,
+            'address': self.address,
+            'is_active': self.is_active,
+            'is_verified': self.is_verified,
+            'created_at': self.created_at.isoformat() if self.created_at else None,
+            'updated_at': self.updated_at.isoformat() if self.updated_at else None,
+            'last_login': self.last_login.isoformat() if self.last_login else None
+        }
+        
+        if include_sensitive:
+            user_dict['password'] = self.password
+            
+        return user_dict
+    
+    def is_admin(self):
+        """Check if user has admin role"""
+        return self.role == 'admin'
+    
+    def is_agent(self):
+        """Check if user has agent role"""
+        return self.role == 'agent'
+    
+    def is_customer(self):
+        """Check if user has customer role"""
+        return self.role == 'customer'
+    
+    @staticmethod
+    def validate_role(role):
+        """Validate if role is allowed"""
+        allowed_roles = ['admin', 'agent', 'customer']
+        return role in allowed_roles
