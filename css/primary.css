@@ -1,0 +1,559 @@
+/* =========================================
+   KOLKATA HOMES - PRIMARY THEME STYLES
+   Common styles for all website pages
+   ========================================= */
+
+/* CSS Custom Properties (Theme Variables) */
+:root {
+    /* Primary Color Palette */
+    --primary-color: #0d47a1;        /* Deep Blue */
+    --secondary-color: #ff6d00;      /* Orange */
+    --dark-color: #212121;           /* Dark Gray */
+    --light-color: #f5f5f5;          /* Light Gray */
+    --gray-color: #757575;           /* Medium Gray */
+    --white-color: #ffffff;          /* White */
+    --black-color: #000000;          /* Black */
+    
+    /* Status Colors */
+    --success-color: #4caf50;        /* Green */
+    --warning-color: #ff9800;        /* Amber */
+    --danger-color: #f44336;         /* Red */
+    
+    /* Typography */
+    --font-primary: 'Poppins', sans-serif;
+    --font-secondary: 'Playfair Display', serif;
+    
+    /* Effects */
+    --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+/* Global Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-primary);
+    color: var(--dark-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Typography Base */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Layout Container */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Primary Button Component */
+.btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    padding: 12px 25px;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #1565c0;
+    transform: translateY(-3px);
+    box-shadow: var(--box-shadow);
+}
+
+/* Section Header Component */
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-header h2 {
+    font-family: var(--font-secondary);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 15px;
+}
+
+.section-header p {
+    color: var(--gray-color);
+    font-size: 16px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Header Styles */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--white-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 15px 0;
+    transition: var(--transition);
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo Component */
+.logo a {
+    display: flex;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.logo img {
+    height: 40px;
+    margin-right: 10px;
+    float: left;
+}
+
+/* Navigation Component */
+.navbar ul {
+    display: flex;
+}
+
+.navbar ul li {
+    margin: 0 15px;
+}
+
+.navbar ul li a {
+    font-weight: 500;
+    transition: var(--transition);
+    position: relative;
+}
+
+.navbar ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.navbar ul li a:hover::after {
+    width: 100%;
+}
+
+.navbar ul li a:hover {
+    color: var(--primary-color);
+}
+
+/* Header Action Button */
+.header-right .call-btn {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.header-right .call-btn:hover {
+    background-color: #1565c0;
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-btn {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Form Components */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(13, 71, 161, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+/* Submit Button */
+.submit-btn {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 10px;
+    transition: var(--transition);
+}
+
+.submit-btn:hover {
+    background-color: #1565c0;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: var(--black-color);
+    color: var(--white-color);
+    padding: 60px 0 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-col {
+    margin-bottom: 30px;
+}
+
+.footer-col .logo {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.footer-col .logo img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.footer-col .logo span {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white-color);
+}
+
+.footer-col p {
+    color: var(--white-color);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.footer-col h3 {
+    font-size: 1.2rem;
+    color: var(--white-color);
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+    transition: var(--transition);
+}
+
+.footer-col h3:hover {
+    color: #0077b5;
+    transform: translateX(5px);
+}
+
+.footer-col h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    height: 2px;
+    background: #0077b5;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 12px;
+}
+
+.footer-col ul li a {
+    color: var(--white-color);
+    text-decoration: none;
+    transition: var(--transition);
+    display: inline-block;
+}
+
+.footer-col ul li a:hover {
+    color: #0077b5;
+    transform: translateX(5px);
+}
+
+/* Social Media Icons */
+.social-links {
+    display: flex;
+    margin-top: 20px;
+}
+
+.social-icon {
+    font-size: 1.5rem;
+    margin-right: 15px;
+    transition: var(--transition);
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+}
+
+.facebook { color: #1877F2; }
+.instagram { 
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.linkedin { color: #0077B5; }
+
+/* Newsletter Form */
+.newsletter-form {
+    display: flex;
+    margin-top: 20px;
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    font-size: 0.9rem;
+}
+
+.newsletter-form button {
+    background-color: #0077b5;
+    color: var(--white-color);
+    border: none;
+    padding: 0 20px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.newsletter-form button:hover {
+    background-color: #005f8d;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    border-top: 1px solid #eee;
+    padding: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-bottom p {
+    color: #eeebeb;
+    font-size: 0.9rem;
+    margin: 5px 0;
+}
+
+.footer-links {
+    display: flex;
+}
+
+.footer-links a {
+    color: #faeaea;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.footer-links a:hover {
+    color: #0077b5;
+}
+
+/* Popup/Modal Styles */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: var(--white-color);
+    padding: 25px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #888;
+    transition: var(--transition);
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+/* Card Components */
+.card {
+    background-color: var(--white-color);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Icon Components */
+.icon {
+    width: 70px;
+    height: 70px;
+    background-color: rgba(13, 71, 161, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: var(--primary-color);
+    font-size: 30px;
+    transition: var(--transition);
+}
+
+.icon:hover {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+/* Responsive Design - Mobile First */
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block;
+    }
+    
+    .navbar {
+        display: none;
+    }
+    
+    .container {
+        padding: 0 10px;
+    }
+    
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-links {
+        margin-top: 15px;
+        justify-content: center;
+    }
+    
+    .footer-links a {
+        margin: 0 10px;
+    }
+    
+    .popup-content {
+        width: 95%;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .section-header h2 {
+        font-size: 28px;
+    }
+    
+    .logo a {
+        font-size: 18px;
+    }
+    
+    .logo img {
+        height: 35px;
+    }
+}
