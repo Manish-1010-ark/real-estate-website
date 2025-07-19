@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Properties | WallstreetLLP - Premium Real Estate in Kolkata</title>
+    <meta name="description" content="Browse our extensive collection of premium residential and commercial properties in Kolkata. Find your dream home with Kolkata Homes.">
+    <meta name="keywords" content="kolkata properties, flats for sale kolkata, apartments kolkata, villas kolkata, commercial property kolkata">
+    
+    <!-- Preconnect for faster font loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Fixed Main CSS for Flask -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    
+    <!-- Fixed Favicon for Flask -->
+    <link rel="icon" href="{{ url_for('static', filename='logo.png') }}" type="image/png">
+</head>
+<body>
+    <!-- ============================================
+         HEADER SECTION
+    ============================================ -->
+    <header class="header">
+        <div class="container">
+            <!-- Logo Section -->
+            <div class="logo">
+                <a href="/">
+                    <img src="{{ url_for('static', filename='logo.png') }}" alt="WallstreetLLP Logo">
+                    <span>WallStreet LLP</span>
+                </a>
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav class="navbar">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/properties">Properties</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+
+			<!-- Header Actions -->
+<div class="header-right">
+  <a href="/login" id="login-btn" class="call-btn">
+    <i class="fa fa-sign-in"></i> Log In
+  </a>
+  <a id="profile-btn" href="#" class="call-btn" style="display: none;">
+    <i class="fas fa-user-circle"></i>
+    <span id="profile-label">Dashboard</span>
+  </a>
+  <a href="#" id="logout-btn" class="call-btn" style="display: none;">
+    <i class="fa fa-sign-out"></i> Logout
+  </a>
+</div>
+
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <h1>Our Properties</h1>
+                <p>Discover premium residential and commercial properties across Kolkata</p>
+                
+                <!-- Search and Filter Section -->
+                <div class="search-filter-container">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label for="location-filter">Location</label>
+                            <select id="location-filter" name="location">
+                                <option value="">All Locations</option>
+                                <option value="salt-lake">Salt Lake</option>
+                                <option value="alipore">Alipore</option>
+                                <option value="park-street">Park Street</option>
+                                <option value="new-town">New Town</option>
+                                <option value="ballygunge">Ballygunge</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="price-slider">Budget: <span id="price-display">Any</span></label>
+                            <input
+                                type="range"
+                                id="price-slider"
+                                min="0"
+                                max="1000000"    
+                                step="50000"     
+                                value="0"
+                            />
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="bedroom-slider">Bedrooms: <span id="bedroom-count">Any</span></label>
+                            <input type="range" id="bedroom-slider" name="bedrooms" min="0" max="5" step="1" value="0">
+                        </div>
+                        
+                        <div class="filter-group">
+                            <button type="button" class="filter-btn" aria-label="Apply filters">
+                                <i class="fa fa-filter" aria-hidden="true"></i> Filter
+                            </button>
+                            <button type="button" id="reset-btn" class="clear-filters-btn" aria-label="Reset filters">
+                                <i class="fa fa-refresh" aria-hidden="true"></i> Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Properties Listings Section -->
+    <main class="properties-section">
+        <div class="container">
+            <!-- Results Summary -->
+            <div class="results-summary">
+                <p id="results-count">Showing <span id="visible-count">5</span> of <span id="total-count">6</span> properties</p>
+                <button type="button" id="clear-filters" class="clear-filters-btn" style="display: none;">
+                    <i class="fa fa-times" aria-hidden="true"></i> Clear Filters
+                </button>
+            </div>
+
+            <!-- Properties Grid - Single Column Layout -->
+            <div class="properties-grid single-column" id="property-list"></div>
+
+            <!-- Load More Section -->
+            <div class="load-more-section">
+                <button id="load-more-btn" class="load-more-btn">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Load More Properties
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo">
+                        <a href="/" aria-label="Kolkata Homes - Go to Homepage">
+                            <!-- Fixed logo path for Flask -->
+                            <img src="{{ url_for('static', filename='logo.png') }}" alt="Kolkata Homes Logo" width="40" height="40">
+                            <span>WallstreetLLP</span>
+                        </a>
+                    </div>
+                    <p>Your trusted partner for premium real estate services in Kolkata since 2008.</p>
+                    <div class="social-links">
+                        <a href="https://wa.me/919051302405"><i class="fab fa-whatsapp social-icon whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-facebook social-icon facebook"></i></a>
+                        <a href="https://www.instagram.com/mai.souvickk/?hl=en"><i class="fab fa-instagram social-icon instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin social-icon linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <!-- Fixed footer navigation links -->
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/properties">Properties</a></li>
+                        
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Popular Locations</h3>
+                    <ul>
+                        <li><a href="#" data-location="salt-lake">Salt Lake</a></li>
+                        <li><a href="#" data-location="new-town">New Town</a></li>
+                        <li><a href="#" data-location="alipore">Alipore</a></li>
+                        <li><a href="#" data-location="ballygunge">Ballygunge</a></li>
+                        <li><a href="#" data-location="park-street">Park Street</a></li>
+                        <li><a href="#" data-location="south-kolkata">South Kolkata</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Our Location</h3>
+                    <div class="location-info">
+                        <address>
+                            <p><a href="https://maps.app.goo.gl/GJE6Tg4Zdkii49wA9">
+                              <i class="fas fa-map-marker-alt"></i> D158-Link Road Biswa Bangla Sarani<br>
+                                Kolkata, West Bengal 700141</a>
+                            </p>
+                            <p>
+                              <a href="tel:+919051302405" class="contact-link">
+                                <i class="fa fa-phone"></i> +91&nbsp;90513&nbsp;02405
+                              </a>
+                            </p>
+                            <p>
+                                <i class="fas fa-envelope" aria-hidden="true"></i> 
+                                <a href="mailto:info@wallstreetllp.com">info@wallstreet.com</a>
+                            </p>
+                        </address>
+                    </div>
+                    
+                    <h3 class="newsletter-heading">Newsletter</h3>
+                    <p class="newsletter-text">Subscribe to get updates on new properties and offers</p>
+                    <form class="newsletter-form" novalidate>
+                        <label for="newsletter-email" class="sr-only">Email address for newsletter</label>
+                        <input type="email" id="newsletter-email" placeholder="Your Email" required>
+                        <button type="submit" aria-label="Subscribe to newsletter">
+                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Kolkata Homes. All Rights Reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Enquiry Modal -->
+    <div id="enquiry-modal" style="display: none;"></div>
+
+    <!-- Fixed JavaScript links for Flask -->
+    <script src="{{ url_for('static', filename='property.js') }}"></script>
+    <script src="{{ url_for('static', filename='login.js') }}"></script>
+
+</body>
+</html>

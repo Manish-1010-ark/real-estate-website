@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WallstreetLLP - Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='extra.css') }}">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="wrapper">
+      <div class="card-switch">
+        <label class="switch">
+          <input class="toggle" type="checkbox" />
+          <span class="slider"></span>
+          <span class="card-side"></span>
+          
+          <div class="flip-card__inner">
+            <!-- Close Button -->
+            <button 
+              class="close-btn" 
+              onclick="window.location.href='/home'" 
+              type="button"
+              aria-label="Close"
+              title="Close and return to home"
+            >
+              &times;
+            </button>
+            
+            <!-- Login Form -->
+            <div class="flip-card__front">
+              <div class="title">Log in</div>
+              <form action="#" class="flip-card__form" id="login-form" autocomplete="off">
+                <input 
+                  type="email" 
+                  placeholder="Email" 
+                  name="email" 
+                  id="login-email" 
+                  class="flip-card__input" 
+                  required 
+                  autocomplete="off"
+                />
+                <input 
+                  type="password" 
+                  placeholder="Password" 
+                  name="password" 
+                  id="login-password" 
+                  class="flip-card__input" 
+                  required 
+                  autocomplete="off"
+                />
+                <a href="#" class="forgot-password">Forgot Password?</a>
+                <button type="submit" class="flip-card__btn">Let's go!</button>
+              </form>
+            </div>
+            
+            <!-- Sign Up Form -->
+            <div class="flip-card__back">
+              <div class="title">Sign up</div>
+              <form action="#" class="flip-card__form" id="signup-form">
+                <input 
+                  type="text" 
+                  placeholder="Name" 
+                  name="name" 
+                  class="flip-card__input" 
+                  pattern="[A-Za-z\s]+"
+                  oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')"
+                  required 
+                />
+                <input 
+                  type="email" 
+                  placeholder="Email" 
+                  name="email" 
+                  class="flip-card__input" 
+                  required 
+                />
+                <input 
+                  type="password" 
+                  placeholder="Password" 
+                  name="password" 
+                  class="flip-card__input" 
+                  required 
+                />
+                <input 
+                  type="tel" 
+                  placeholder="Phone (10 digits)" 
+                  name="mobile" 
+                  class="flip-card__input" 
+                  pattern="[0-9]{10}" 
+                  maxlength="10"
+                  minlength="10"
+                  oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                  required 
+                />
+                <button type="submit" class="flip-card__btn">Confirm!</button>
+              </form>
+            </div>
+            
+          </div>
+        </label>
+      </div>
+    </div>
+  </div>
+  
+  <script src="{{ url_for('static', filename='login.js') }}"></script>
+</body>
+</html>

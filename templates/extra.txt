@@ -1,0 +1,337 @@
+<script>
+        // Property filtering functionality
+        class PropertyFilter {
+            constructor() {
+                this.properties = document.querySelectorAll('.property-card');
+                this.locationFilter = document.getElementById('location-filter');
+                this.typeFilter = document.getElementById('type-filter');
+                this.budgetFilter = document.getElementById('budget-filter');
+                this.filterBtn = document.querySelector('.filter-btn');
+                this.clearFiltersBtn = document.getElementById('clear-filters');
+                this.visibleCount = document.getElementById('visible-count');
+                this.totalCount = document.getElementById('total-count');
+                this.loadMoreBtn = document.getElementById('load-more-btn');
+                
+                this.init();
+            }
+
+            init() {
+                this.filterBtn.addEventListener('click', () => this.applyFilters());
+                this.clearFiltersBtn.addEventListener('click', () => this.clearFilters());
+                this.loadMoreBtn.addEventListener('click', () => this.loadMoreProperties());
+                
+                // Initial setup
+                this.updateCounts();
+                this.showInitialProperties();
+            }
+
+            showInitialProperties() {
+                // Show first 5 properties, hide the 6th
+                this.properties.forEach((property, index) => {
+                    if (index < 5) {
+                        property.classList.remove('hidden');
+                    } else {
+                        property.classList.add('hidden');
+                    }
+                });
+                this.updateCounts();
+            }
+
+            applyFilters() {
+                const location = this.locationFilter.value;
+                const type = this.typeFilter.value;
+                const budget = this.budgetFilter.value;
+                
+                let visibleProperties = 0;
+                let shownProperties = 0;
+
+                this.properties.forEach(property => {
+                    const propertyLocation = property.dataset.location;
+                    const propertyType = property.dataset.type;
+                    const propertyBudget = parseInt(property.dataset.budget);
+                    
+                    let matches = true;
+
+                    if (location && propertyLocation !== location) matches = false;
+                    if (type && propertyType !== type) matches = false;
+                    if (budget && !this.budgetMatches(propertyBudget, budget)) matches = false;
+
+                    if (matches) {
+                        visibleProperties++;
+                        if (shownProperties < 5) {
+                            property.classList.remove('hidden', 'filtered-out');
+                            shownProperties++;
+                        } else {
+                            property.classList.add('hidden');
+                            property.classList.remove('filtered-out');
+                        }
+                    } else {
+                        property.classList.add('filtered-out', 'hidden');
+                    }
+                });
+
+                this.updateCounts();
+                this.toggleClearButton();
+                this.updateLoadMoreButton();
+            }
+
+            budgetMatches(propertyBudget, budgetRange) {
+                switch(budgetRange) {
+                    case '0-50': return propertyBudget < 50;
+                    case '50-100': return propertyBudget >= 50 && propertyBudget < 100;
+                    case '100-200': return propertyBudget >= 100 && propertyBudget < 200;
+                    case '200+': return propertyBudget >= 200;
+                    default: return true;
+                }
+            }
+
+            clearFilters() {
+                this.locationFilter.value = '';
+                this.typeFilter.value = '';
+                this.budgetFilter.value = '';
+                
+                this.properties.forEach(property => {
+                    property.classList.remove('filtered-out');
+                });
+                
+                this.showInitialProperties();
+                this.toggleClearButton();
+                this.updateLoadMoreButton();
+            }
+
+            loadMoreProperties() {
+                const hiddenProperties = Array.from(this.properties).filter(property => 
+                    property.classList.contains('hidden') && !property.classList.contains('filtered-out')
+                );
+                
+                hiddenProperties.slice(0, 5).forEach(property => {
+                    property.classList.remove('hidden');
+                });
+
+                this.updateCounts();
+                this.updateLoadMoreButton();
+            }
+
+            updateCounts() {
+                const visibleProperties = Array.from(this.properties).filter(property => 
+                    !property.classList.contains('hidden')
+                ).length;
+                
+                const totalProperties = Array.from(this.properties).filter(property => 
+                    !property.classList.contains('filtered-out')
+                ).length;
+
+                this.visibleCount.textContent = visibleProperties;
+                this.totalCount.textContent = totalProperties;
+            }
+
+            updateLoadMoreButton() {
+                const hiddenProperties = Array.from(this.properties).filter(property => 
+                    property.classList.contains('hidden') && !property.classList.contains('filtered-out')
+                );
+                
+                if (hiddenProperties.length === 0) {
+                    this.loadMoreBtn.style.display = 'none';
+                } else {
+                    this.loadMoreBtn.style.display = 'block';
+                }
+            }
+
+            toggleClearButton() {
+                const hasActiveFilters = this.locationFilter.value || this.typeFilter.value || this.budgetFilter.value;
+                this.clearFiltersBtn.style.display = hasActiveFilters ? 'inline-block' : 'none';
+            }
+        }
+
+        // Property enquiry modal functionality
+        class EnquiryModal {
+            constructor() {
+                this.modal = document.getElementById('enquiry-modal');
+                this.closeBtn = document.querySelector('.modal-close');
+                this.form = document.getElementById('property-enquiry-form');
+                this.propertyIdInput = document.getElementById('selected-property-id');
+                
+                this.init();
+            }
+
+            init() {
+                this.closeBtn.addEventListener('click', () => this.closeModal());
+                this.modal.addEventListener('click', (e) => {
+                    if (e.target === this.modal) this.closeModal();
+                });
+                
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && !this.modal.getAttribute('aria-hidden')) {
+                        this.closeModal();
+                    }
+                });
+
+                this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+            }
+
+            openModal(propertyId) {
+                this.propertyIdInput.value = propertyId;
+                this.modal.setAttribute('aria-hidden', 'false');
+                this.modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                
+                // Focus management
+                const firstInput = this.modal.querySelector('input[type="text"]');
+                if (firstInput) firstInput.focus();
+            }
+
+            closeModal() {
+                this.modal.setAttribute('aria-hidden', 'true');
+                this.modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                this.form.reset();
+                this.clearErrors();
+            }
+
+            handleSubmit(e) {
+                e.preventDefault();
+                
+                if (this.validateForm()) {
+                    // Simulate form submission
+                    alert('Thank you for your enquiry! We will contact you soon.');
+                    this.closeModal();
+                }
+            }
+
+            validateForm() {
+                const name = document.getElementById('enquiry-name');
+                const email = document.getElementById('enquiry-email');
+                const phone = document.getElementById('enquiry-phone');
+                
+                let isValid = true;
+
+                if (!name.value.trim()) {
+                    this.showError('name-error', 'Name is required');
+                    isValid = false;
+                } else {
+                    this.clearError('name-error');
+                }
+
+                if (!email.value.trim()) {
+                    this.showError('email-error', 'Email is required');
+                    isValid = false;
+                } else if (!this.isValidEmail(email.value)) {
+                    this.showError('email-error', 'Please enter a valid email');
+                    isValid = false;
+                } else {
+                    this.clearError('email-error');
+                }
+
+                if (!phone.value.trim()) {
+                    this.showError('phone-error', 'Phone number is required');
+                    isValid = false;
+                } else if (!/^\d{10}$/.test(phone.value)) {
+                    this.showError('phone-error', 'Please enter a valid 10-digit phone number');
+                    isValid = false;
+                } else {
+                    this.clearError('phone-error');
+                }
+
+                return isValid;
+            }
+
+            isValidEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            }
+
+            showError(errorId, message) {
+                const errorElement = document.getElementById(errorId);
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+
+            clearError(errorId) {
+                const errorElement = document.getElementById(errorId);
+                errorElement.textContent = '';
+                errorElement.style.display = 'none';
+            }
+
+            clearErrors() {
+                const errors = this.modal.querySelectorAll('.error-message');
+                errors.forEach(error => {
+                    error.textContent = '';
+                    error.style.display = 'none';
+                });
+            }
+        }
+
+        // Mobile menu functionality
+        class MobileMenu {
+            constructor() {
+                this.menuBtn = document.querySelector('.mobile-menu-btn');
+                this.navbar = document.querySelector('.navbar');
+                
+                this.init();
+            }
+
+            init() {
+                this.menuBtn.addEventListener('click', () => this.toggleMenu());
+            }
+
+            toggleMenu() {
+                const isExpanded = this.menuBtn.getAttribute('aria-expanded') === 'true';
+                this.menuBtn.setAttribute('aria-expanded', !isExpanded);
+                this.navbar.classList.toggle('active');
+            }
+        }
+
+        // Initialize all functionality when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            new PropertyFilter();
+            new EnquiryModal();
+            new MobileMenu();
+        });
+
+        // Global function for enquiry buttons (maintains compatibility)
+        function openEnquiryForm(propertyId) {
+            const modal = new EnquiryModal();
+            modal.openModal(propertyId);
+        }
+
+        // Newsletter form handling
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            if (email) {
+                alert('Thank you for subscribing to our newsletter!');
+                this.reset();
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Lazy loading enhancement
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src || img.src;
+                        img.classList.remove('lazy');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+    </script>

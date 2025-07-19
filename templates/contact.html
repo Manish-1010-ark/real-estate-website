@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us - WallstreetLLP</title>
+    <!-- Fixed CSS link for Flask -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='common.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+    <!-- ============================================
+         HEADER SECTION
+    ============================================ -->
+    <header class="header">
+        <div class="container">
+            <!-- Logo Section -->
+            <div class="logo">
+                <a href="/">
+                    <img src="{{ url_for('static', filename='logo.png') }}" alt="WallstreetLLP Logo">
+                    <span>WallStreet LLP</span>
+                </a>
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav class="navbar">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/properties">Properties</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Header Actions -->
+			<!-- Header Actions -->
+<div class="header-right">
+  <a href="/login" id="login-btn" class="call-btn">
+    <i class="fa fa-sign-in"></i> Log In
+  </a>
+  <a id="profile-btn" href="#" class="call-btn" style="display: none;">
+    <i class="fas fa-user-circle"></i>
+    <span id="profile-label">Dashboard</span>
+  </a>
+  <a href="#" id="logout-btn" class="call-btn" style="display: none;">
+    <i class="fa fa-sign-out"></i> Logout
+  </a>
+</div>
+
+
+            <!-- Mobile Menu Toggle -->
+            <div class="mobile-menu-btn">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contact Header Section -->
+    <section class="contact-header">
+        <h1>Contact Us - WallstreetLLP</h1>
+        <p>Finding your perfect home in Kolkata has never been easier. Whether you're buying, selling, or investing, Kolkata Homes is here to guide you at every step. Get in touch with us today — your dream property is just a call away!</p>
+    </section>
+
+    <!-- Contact Container Section -->
+    <section class="contact-container">
+        <div class="form-container">
+            <h2>Contact us — We're Here to Help!</h2>
+            <form id="contact-form" method="POST">
+             <div class="form-group">
+               <input type="text" name="name" placeholder="Your Name" required />
+             </div>
+             <div class="form-group">
+               <input type="email" name="email" placeholder="Your Email" required />
+             </div>
+             <div class="form-group">
+                <input type="tel" name="phone" placeholder="Your Phone" />
+             </div>
+              <div class="form-group">
+               <textarea name="message" placeholder="Your Message" rows="5"></textarea>
+              </div>
+              <button type="submit" class="btn">Send Message</button>
+           </form>
+
+            <div class="contact-info">
+                <p>📞+91 9051302405 | +91 9903717624</p>            
+                <p>📧 info@wallstreetllp.com</p>
+                <p>📍 D158-Link Road Biswa Bangla Sarani , Kolkata-700141</p>
+            </div>
+        </div>
+<script>
+document.getElementById("contact-form").addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const data = {
+    name: form.name.value,
+    email: form.email.value,
+    phone: form.phone.value,
+    message: form.message.value
+  };
+
+  try {
+    const res = await fetch("https://www.wallstreetllp.com/api/inquiries", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+    if (res.ok && result.success) {
+      alert("✅ Message sent successfully!");
+      form.reset();
+    } else {
+      alert("❌ Error: " + result.error);
+    }
+  } catch (err) {
+    console.error("Error:", err);
+    alert("⚠️ Network error. Please try again later.");
+  }
+});
+</script>
+        <div class="map-container">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3683.6761716330825!2d88.34704721495994!3d22.567258985181735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a0277b3a0a5d3f9%3A0x4a2db9f4c4094e87!2sCentre%20Point%2C%2021%2C%20Hemanta%20Basu%20Sarani%2C%20B.B.D.%20Bagh%2C%20Kolkata%2C%20West%20Bengal%20700001!5e0!3m2!1sen!2sin!4v1657700517465!5m2!1sen!2sin"
+                width="100%" 
+                height="100%" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo">
+                        <a href="/">
+                            <!-- Fixed logo path for Flask -->
+                            <img src="{{ url_for('static', filename='logo.png') }}" alt="WallstreetLLP Logo">
+                            <span>WallstreetLLP</span>
+                        </a>
+                    </div>
+                    <p>Your trusted partner for premium real estate services in Kolkata since 2008.</p>
+                    <div class="social-links">
+                        <a href="https://wa.me/919051302405"><i class="fab fa-whatsapp social-icon whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-facebook social-icon facebook"></i></a>
+                        <a href="https://www.instagram.com/mai.souvickk/?hl=en"><i class="fab fa-instagram social-icon instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin social-icon linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <!-- Fixed footer navigation links -->
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/properties">Properties</a></li>
+                        
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Popular Locations</h3>
+                    <ul>
+                        <li><a href="#">Salt Lake</a></li>
+                        <li><a href="#">New Town</a></li>
+                        <li><a href="#">Alipore</a></li>
+                        <li><a href="#">Ballygunge</a></li>
+                        <li><a href="#">Park Street</a></li>
+                        <li><a href="#">South Kolkata</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Our Location</h3>
+                    <div class="location-info">
+                        <p><a href="https://maps.app.goo.gl/GJE6Tg4Zdkii49wA9">
+                            <i class="fas fa-map-marker-alt"></i> D158-Link Road Biswa Bangla Sarani<br>
+                            Kolkata, West Bengal 700141</a>
+                        </p>
+                        <p>
+                          <a href="tel:+919051302405" class="contact-link">
+                           <i class="fa fa-phone"></i> +91&nbsp;90513&nbsp;02405
+                          </a>
+                        </p>
+                        <p><i class="fas fa-envelope"></i> <a href="mailto:info@wallstreetllp.com">info@wallstreetllp.com</a></p>
+                    </div>
+                    
+                    <h3 class="newsletter-heading">Newsletter</h3>
+                    <p class="newsletter-text">Subscribe to get updates on new properties and offers</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your Email" required>
+                        <button type="submit"><i class="fa fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 WallstreetLLP. All Rights Reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Fixed JS link for Flask -->
+    <script src="{{ url_for('static', filename='login.js') }}"></script>
+</body>
+</html>

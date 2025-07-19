@@ -1,0 +1,124 @@
+Folder PATH listing for volume Acer
+Volume serial number is 1AF9-361D
+C:.
+¦   app.py
+¦   config.py
+¦   export_db.py
+¦   extensions.py
+¦   requirements.txt
+¦   seed_properties.py
+¦   tree.txt
+¦   
++---instance
+¦       real_estate.db
+¦       users.db
+¦       
++---migrations
+¦   ¦   alembic.ini
+¦   ¦   env.py
+¦   ¦   README
+¦   ¦   script.py.mako
+¦   ¦   
+¦   +---versions
+¦           613457953274_replace_badge_with_status_in_properties.py
+¦           b88394e19da2_make_property_id_nullable_in_user_.py
+¦           
++---models
+¦   ¦   property.py
+¦   ¦   user.py
+¦   ¦   user_enquiry.py
+¦   ¦   __init__.py
+¦   ¦   
+¦   +---__pycache__
+¦           inquiry.cpython-312.pyc
+¦           property.cpython-312.pyc
+¦           user.cpython-312.pyc
+¦           user_enquiry.cpython-312.pyc
+¦           __init__.cpython-312.pyc
+¦           
++---routes
+¦   ¦   admin_routes.py
+¦   ¦   auth.py
+¦   ¦   frontend.py
+¦   ¦   inquiry_routes.py
+¦   ¦   property_routes.py
+¦   ¦   __init__.py
+¦   ¦   
+¦   +---static
+¦   ¦   +---uploads
+¦   +---__pycache__
+¦           admin_routes.cpython-312.pyc
+¦           auth.cpython-312.pyc
+¦           frontend.cpython-312.pyc
+¦           inquiry_routes.cpython-312.pyc
+¦           property.cpython-312.pyc
+¦           property_routes.cpython-312.pyc
+¦           __init__.cpython-312.pyc
+¦           
++---static
+¦   ¦   admin.js
+¦   ¦   common.css
+¦   ¦   dashboard.css
+¦   ¦   extra.css
+¦   ¦   featured-properties.js
+¦   ¦   hero.jpg
+¦   ¦   login.css
+¦   ¦   login.js
+¦   ¦   logo.png
+¦   ¦   main.css
+¦   ¦   primary.css
+¦   ¦   property-detail.js
+¦   ¦   property.js
+¦   ¦   style.css
+¦   ¦   stylesou.css
+¦   ¦   team1.jpeg
+¦   ¦   team2.jpg
+¦   ¦   team3.jpg
+¦   ¦   
+¦   +---assets
+¦   ¦       delhi.jpg
+¦   ¦       mars.jpg
+¦   ¦       unnamed.jpg
+¦   ¦       
+¦   +---uploads
+¦           10165b0a-20d3-4d19-a527-7eadb00545da.jpg
+¦           16aa3da2-9ea0-46df-a7cb-f74d39109f8f.jpg
+¦           17770e40-eacb-4db6-bdc8-5bc15c97d905.jpg
+¦           3a35678e-4959-450a-b247-6be91df47ab4.jpg
+¦           3bd43dd3-36fa-464e-ac33-6b4deb227c4d.jpg
+¦           44cc3ae9-a231-4f66-9c46-77dec188d758.jpg
+¦           599e39d6-58c8-4823-9471-7809c9fd172e.jpg
+¦           68ba3a45-bc78-462f-878d-9704b874e0cd.jpg
+¦           82fca8d9-a0f5-46dc-9271-9545efa43485.jpg
+¦           856963da-0ec6-4b72-a1d9-768a3f443eac.jpg
+¦           a7f6f0a8-9440-4ed9-b540-7bd234455b27.jpg
+¦           ab36e777-e9f4-4cf9-8a89-7499d6eaa36f.jpg
+¦           default.jpg
+¦           eb4493e5-1cf5-4a68-b4ac-3debc896d017.jpeg
+¦           f0c5274d-8638-448e-8e51-f19445c2f9da.jpg
+¦           family_photo.jpg
+¦           property1.jpg
+¦           property10.jpg
+¦           property11.jpg
+¦           property12.jpg
+¦           property13.jpg
+¦           property2.jpg
+¦           property3.jpg
+¦           property4.jpg
+¦           property5.jpg
+¦           property6.jpg
+¦           property7.jpg
+¦           property8.jpg
+¦           property9.jpg
+¦           
++---templates
+        about.html
+        admin-dashboard.html
+        contact.html
+        extra.txt
+        home.html
+        login.html
+        profile.html
+        properties.html
+        property-detail.html
+        

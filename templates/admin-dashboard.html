@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - WallstreetLLP</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<script>
+  // Prevent access to admin page without valid token
+  const token = localStorage.getItem("access_token");
+  const role = localStorage.getItem("user_role");
+
+  if (!token || !role || role.toLowerCase() !== "admin") {
+    localStorage.clear(); // clean up in case of tampering
+    window.location.replace("/login"); // redirect to login
+  }
+</script>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+            <button class="sidebar-toggle" onclick="toggleSidebar()">
+             <i class="fas fa-bars"></i>
+            </button>
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="#" class="sidebar-logo">
+          <i class="fas fa-shield-alt"></i>
+
+
+          <span>Admin Panel</span>
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-item"><a href="#" class="nav-link active"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></div>
+        <div class="nav-item"><a href="/home" class="nav-link"><i class="fas fa-home"></i><span>Home</span></a></div>
+        <div class="nav-item"><a href="/properties" class="nav-link"><i class="fas fa-building"></i><span>Properties</span></a></div>
+        <div class="nav-item"><a href="/home#services" class="nav-link"><i class="fas fa-cogs"></i><span>Services</span></a></div>
+        <div class="nav-item"><a href="/about" class="nav-link"><i class="fas fa-info-circle"></i><span>About Us</span></a></div>
+        <div class="nav-item"><a href="/contact" class="nav-link"><i class="fas fa-envelope"></i><span>Contact</span></a></div>
+      </nav>
+      <div class="sidebar-footer">
+        <button onclick="logout()" class="logout-btn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></button>
+      </div>
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="top-bar">
+        <h1 class="page-title">Property Management</h1>
+        <div class="admin-info">
+          <div class="admin-avatar">A</div>
+          <span>Admin User</span>
+        </div>
+      </div>
+
+      <!-- Dashboard Stats -->
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-icon properties"><i class="fas fa-building"></i></div><div class="stat-content"><h3 id="total-properties">0</h3><p>Total Properties</p></div></div>
+        <div class="stat-card"><div class="stat-icon active"><i class="fas fa-check-circle"></i></div><div class="stat-content"><h3 id="active-properties">0</h3><p>Active Properties</p></div></div>
+        <div class="stat-card"><div class="stat-icon inactive"><i class="fas fa-pause-circle"></i></div><div class="stat-content"><h3 id="inactive-properties">0</h3><p>Inactive Properties</p></div></div>
+      </div>
+
+      <!-- Properties Section -->
+      <div class="properties-section">
+        <div class="section-header">
+          <div class="section-title"><i class="fas fa-building"></i><span>Property Listings</span></div>
+          <button id="ap-btn" class="add-property-btn"><i class="fas fa-plus"></i><span>Add New Property</span></button>
+        </div>
+        <div class="property-grid" id="property-list">
+          <!-- Properties will be dynamically loaded here -->
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal for Add/Edit Property -->
+  <div id="apModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Add New Property</h2>
+        <button class="close-btn" type="button">&times;</button>
+      </div>
+      <form id="add-property-form" enctype="multipart/form-data">
+        <input type="hidden" id="propertyId" />
+        <div class="form-grid">
+          <div class="form-group full-width"><label for="title">Title *</label><input type="text" id="title" name="title" required></div>
+          <div class="form-group"><label for="price">Price *</label><input type="text" id="price" name="price" required></div>
+          <div class="form-group"><label for="location">Location *</label><input type="text" id="location" name="location" required></div>
+          <div class="form-group"><label for="bedrooms">Bedrooms *</label><input type="number" id="bedrooms" name="bedrooms" required></div>
+          <div class="form-group"><label for="bathrooms">Bathrooms *</label><input type="number" id="bathrooms" name="bathrooms" required></div>
+          <div class="form-group"><label for="area">Area (sq.ft) *</label><input type="number" id="area" name="area" required></div>
+          <div class="form-group"><label for="status">Status *</label><select id="status" name="status" required><option value="">Select</option><option value="Active">Active</option><option value="Inactive">Inactive</option></select></div>
+          <div class="form-group full-width"><label for="image">Image *</label><input type="file" id="image" name="image" accept="image/*" required></div>
+        </div>
+        <button type="submit" class="submit-btn"><i class="fas fa-save"></i> Save Property</button>
+      </form>
+    </div>
+  </div>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggleBtn = document.querySelector('.sidebar-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+        sidebar.classList.remove('open');
+      }
+    });
+  });
+</script>
+
+  <script src="{{ url_for('static', filename='admin.js') }}"></script>
+</body>
+</html>
