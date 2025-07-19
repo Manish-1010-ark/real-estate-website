@@ -7,20 +7,40 @@ A modern full-stack property listing platform built with Flask and PostgreSQL. F
 
 ## 📸 Screenshots
 
-![Home Page](screenshots/home.png)
-*Property listings with search and filter functionality*
+<details>
+  <summary>🏠 Home Page</summary>
 
-![Listings – filter panel open](screenshots/properties.png)  
-*Property listings with active filters*
+  ![Home Page](screenshots/home.png)  
+  *Property listings with search and filter functionality*
+</details>
 
-![Property Details](screenshots/property_details.png)
-*Detailed property view with image gallery and inquiry form*
+<details>
+  <summary>📋 Listings – Filter Panel Open</summary>
 
-![Admin Dashboard](screenshots/admin_dashboard.png)
-*Admin panel for managing properties and inquiries*
+  ![Listings – filter panel open](screenshots/properties.png)  
+  *Property listings with active filters*
+</details>
 
-![Mobile View](screenshots/mobile_view.png)  
-*Responsive mobile layout*
+<details>
+  <summary>🔍 Property Details</summary>
+
+  ![Property Details](screenshots/properties_details.png)  
+  *Detailed property view with image gallery and inquiry form*
+</details>
+
+<details>
+  <summary>🛠️ Admin Dashboard</summary>
+
+  ![Admin Dashboard](screenshots/admin_dashboard.png)  
+  *Admin panel for managing properties and inquiries*
+</details>
+
+<details>
+  <summary>📱 Mobile View</summary>
+
+  <img src="screenshots/mobile_view.png" alt="Mobile View" width="300"/>  
+  *Responsive mobile layout*
+</details>
 
 ## ✨ Key Features
 
