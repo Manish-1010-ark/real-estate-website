@@ -27,9 +27,33 @@ A modern full-stack property listing platform built with Flask and PostgreSQL. F
 
 ## 🛠️ Tech Stack
 
-**Backend:** Flask, PostgreSQL, SQLAlchemy, JWT Authentication  
-**Frontend:** HTML5, CSS3, JavaScript  
-**Features:** RESTful API, Database migrations, Email notifications
+<div align="center">
+
+### Backend
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-D71F00?style=for-the-badge&logo=sqlalchemy&logoColor=white)
+
+### Frontend
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+
+### Tools & Libraries
+![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
+![Alembic](https://img.shields.io/badge/Alembic-6BA81E?style=for-the-badge&logo=alembic&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+
+</div>
+
+### 🔧 Key Technologies Used:
+- **Flask** - Web framework with RESTful API design
+- **PostgreSQL** - Robust relational database with complex queries
+- **SQLAlchemy** - ORM for database operations and relationships
+- **JWT Authentication** - Secure token-based admin authentication
+- **Flask-Migrate** - Database schema version control
+- **Responsive CSS** - Mobile-first responsive design
 
 ## 🚀 Quick Start
 
