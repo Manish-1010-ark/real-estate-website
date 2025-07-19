@@ -112,6 +112,6 @@ This project demonstrates my ability to:
 
 ## 📧 Contact
 
-**Manish** - [Your Email] - [LinkedIn Profile]
+**Manish** – [manishshivam009@gmail.com](mailto:manishshivam009@gmail.com) – [LinkedIn](https://www.linkedin.com/in/manish-shivam-a4b600208)
 
 ⭐ **Star this repo if you find it interesting!**
